@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-# https://www.hackerrank.com/challenges/even-tree
+# https://www.hackerrank.com/contests/csindia-practice/challenges/cavity-map
 # TEST: cat cavity_map.txt | ./cavity_map.rb
 # Making it work with Ruby 1.9.3
 
