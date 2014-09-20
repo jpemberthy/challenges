@@ -13,12 +13,12 @@ def dfs(graph, node, discovered = Set.new)
     dfs(graph, g, discovered) unless discovered.include? g
   end
 
-  discovered.size
+  discovered.size # we only need the count of the visited nodes for this problem.
 end
 
 k.times do |_case|
   graph = Hash.new { |hsh, key| hsh[key] = Set.new }
-  weights = Hash.new { |hsh, key| hsh[key] = 0 }
+  visited_count = Hash.new
 
   nodes_count = STDIN.gets.to_i
 
@@ -28,10 +28,11 @@ k.times do |_case|
   end
 
   graph.each do |node, _v|
-    weights[node] = dfs(graph, node)
+    visited_count[node] = dfs(graph, node)
   end
 
-  max_martians = weights.sort_by { |_k, v| -v }.first.last
-  martian = weights.find_all { |k, v| v == max_martians }.sort_by { |x| x.first }.first.first
+  max_martians = visited_count.sort_by { |_k, v| -v }.first.last
+  martian = visited_count.find_all { |k, v| v == max_martians }.sort_by { |x| x.first }.first.first
+
   STDOUT.puts "CASE #{_case+1}: #{martian}"
 end
