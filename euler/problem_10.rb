@@ -7,18 +7,24 @@ n = 1_999_999
 
 ary = Array.new(n) { true }
 
-(2..Math.sqrt(n)).each do |i|
-  if ary[i]
-    j = i ** 2
-    while j < n
-      ary[j] = false
-      j += i
+sum = 0
+j = 0
+sqrt_n = Math.sqrt(n)
+
+(0..n).each do |i|
+  sum += i if ary[i]
+
+  if j > 1 && j <= sqrt_n
+    if ary[j]
+      k = j ** 2
+      while k < n
+        ary[k] = false
+        k += j
+      end
     end
   end
+
+  j += 1
 end
 
-primes = ary.each_with_index.inject(0) do |sum, (value, index)|
-  sum += (value ? index : 0)
-end
-
-p primes - 1
+p sum - 1
