@@ -1,7 +1,7 @@
 # Summation of primes
 # https://projecteuler.net/problem=10
 # Solved by generating all the primes below n with the sieve of Eratosthenes. http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
-# takes less than 3 secs in Ruby.
+# takes ~ 1 sec in Ruby.
 
 n = 1_999_999
 
