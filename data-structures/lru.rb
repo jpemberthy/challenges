@@ -1,4 +1,4 @@
-# A simple Ruby LRU cache with get and set operations in constant time O(1).
+# A simple Ruby LRU cache with get and set operations.
 
 # Capacity in terms of elements to make things simpler.
 # lru = LRU.new(capacity: 10)
