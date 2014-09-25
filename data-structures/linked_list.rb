@@ -28,7 +28,7 @@ class LinkedList
   end
 
   def remove_head
-    if old_head_node = nodes[self.head]
+    if old_head_node = head_node
       self.head = old_head_node.next
     end
 
@@ -45,8 +45,12 @@ class LinkedList
     end
   end
 
+  def head_node
+    nodes[head]
+  end
+
   def each(&block)
-    current_node = nodes[head]
+    current_node = head_node
 
     while current_node
       block.call(current_node)
@@ -66,25 +70,28 @@ class Node
 end
 
 
-l = LinkedList.new
-world = Node.new(data: "world")
-l.insert_at_head(world)
-hello = Node.new(data: "Hello!")
-l.insert_at_head(hello)
-crazy = Node.new(data: "crazy")
-l.insert_after(hello, crazy)
-l.each { |n| puts n.data }
-
-puts "\nremoving 'crazy'"
-l.remove_after(hello)
-l.each { |n| puts n.data }
-
-puts
-l.insert_at_head(Node.new(data: "OMG!"))
-l.remove_head
-l.each { |n| puts n.data }
-
-
-puts
-l.append_to_tail(Node.new(data: "and bye!"))
-l.each { |n| puts n.data }
+# l = LinkedList.new
+# world = Node.new(data: "world")
+# l.insert_at_head(world)
+# hello = Node.new(data: "Hello!")
+# l.insert_at_head(hello)
+# crazy = Node.new(data: "crazy")
+# l.insert_after(hello, crazy)
+# l.each { |n| puts n.data }
+#
+# puts "\nremoving 'crazy'"
+# l.remove_after(hello)
+# l.each { |n| puts n.data }
+#
+# puts
+# l.insert_at_head(Node.new(data: "OMG!"))
+# l.each { |n| puts n.data }
+#
+# puts "\nremoving 'OMG'"
+# l.remove_head
+# l.each { |n| puts n.data }
+#
+#
+# puts
+# l.append_to_tail(Node.new(data: "and bye!"))
+# l.each { |n| puts n.data }
