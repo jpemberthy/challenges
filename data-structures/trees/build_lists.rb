@@ -3,6 +3,7 @@
 
 
 @tree = Hash.new { |hsh, k| hsh[k] = Array.new }
+# Works for any binary tree. Not only BST.
 @tree[0] = [1] # root
 @tree[1] = [2, 3]
 @tree[3] = [4, 5]
