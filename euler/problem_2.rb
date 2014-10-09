@@ -7,7 +7,6 @@
 
 def fib(n)
   return @cache[n] if @cache[n]
-  return n if n <= 2
   @cache[n] = fib(n-1) + fib(n-2)
 end
 
