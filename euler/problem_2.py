@@ -16,8 +16,7 @@ _sum = val = i = 0
 
 while val < n:
     val = fib(i)
-    if val % 2 == 0 and val < n:
-        _sum += val
+    if val % 2 == 0 and val < n: _sum += val
     i += 1
 
 print(_sum)
