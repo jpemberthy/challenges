@@ -1,5 +1,4 @@
-package main // Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000.
-import "fmt"
+// Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000.
 
 // Example:
 
@@ -14,6 +13,9 @@ import "fmt"
 // Input: "cbbd"
 
 // Output: "bb"
+package main
+
+import "fmt"
 
 // longestPalindrome brute force approach
 func longestPalindrome(s string) string {
@@ -22,7 +24,7 @@ func longestPalindrome(s string) string {
 
 	for i := 0; i < n; i++ {
 		for j := i; j < n; j++ {
-			if isPalyndrome(s[i:j+1]) && j-i+1 > len(longestP) {
+			if j-i+1 > len(longestP) && isPalyndrome(s[i:j+1]) {
 				longestP = s[i : j+1]
 			}
 		}
@@ -44,5 +46,5 @@ func isPalyndrome(s string) bool {
 }
 
 func main() {
-	fmt.Println(longestPalindrome("cbbd"))
+	fmt.Println(longestPalindrome("foo"))
 }
