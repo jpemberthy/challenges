@@ -17,53 +17,33 @@ package main
 
 import "fmt"
 
-var cache map[string]bool
-
-// longestPalindrome brute force with index-based caching
+// longestPalindrome brute force cached approach with dynamic programming
 func longestPalindrome(s string) string {
-	cache = make(map[string]bool)
-
 	n := len(s)
-	var longestP string
+	palindromes := make([][]bool, n)
+	for i := range palindromes {
+		palindromes[i] = make([]bool, n)
+	}
+
+	var max, left, right int
 
 	for i := 0; i < n; i++ {
-		for j := i; j < n; j++ {
-			if j-i+1 > len(longestP) && isPalyndrome(s, i, j) {
-				longestP = s[i : j+1]
+		for j := 0; j <= i; j++ {
+			if s[j] == s[i] && (i-j+1 <= 2 || palindromes[j+1][i-1]) {
+				palindromes[j][i] = true
+			}
+
+			if palindromes[j][i] && i-j+1 > max {
+				max = i - j + 1
+				left = j
+				right = i
 			}
 		}
 	}
 
-	return longestP
-}
-
-func isPalyndrome(s string, i int, j int) bool {
-	key := fmt.Sprintf("%d-%d", i, j)
-
-	if _isPalyndrome, found := cache[key]; found {
-		return _isPalyndrome
-	}
-
-	n := j - i + 1
-	if n == 1 {
-		cache[key] = true
-		return true
-	}
-
-	if n == 2 && s[i] == s[j] {
-		cache[key] = true
-		return true
-	}
-
-	var _isPalyndrome bool
-	if s[i] == s[j] {
-		_isPalyndrome = isPalyndrome(s, i+1, j-1)
-	}
-
-	cache[key] = _isPalyndrome
-	return _isPalyndrome
+	return s[left : right+1]
 }
 
 func main() {
-	fmt.Println(longestPalindrome("foo"))
+	fmt.Println(longestPalindrome("iopsajhffgvrnyitusobwcxgwlwniqchfnssqttdrnqqcsrigjsxkzcmuoiyxzerakhmexuyeuhjfobrmkoqdljrlojjjysfdslyvckxhuleagmxnzvikfitmkfhevfesnwltekstsueefbrddxrmxokpaxsenwlgytdaexgfwtneurhxvjvpsliepgvspdchmhggybwupiqaqlhjjrildjuewkdxbcpsbjtsevkppvgilrlspejqvzpfeorjmrbdppovvpzxcytscycgwsbnmspihzldjdgilnrlmhaswqaqbecmaocesnpqaotamwofyyfsbmxidowusogmylhlhxftnrmhtnnljjhhcfvywsqimqxqobfsageysonuoagmmviozeouutsiecitrmkypwknorjjiaasxfhsftypspwhvqovmwkjuehujofiabznpipidhfxpoustquzyfurkcgmioxacleqdxgrxbldcuxzgbcazgfismcgmgtjuwchymkzoiqhzaqrtiykdkydgvuaqkllbsactntexcybbjaxlfhyvbxieelstduqzfkoceqzgncvexklahxjnvtyqcjtbfanzgpdmucjlqpiolklmjxnscjcyiybdkgitxnuvtmoypcdldrvalxcxalpwumfx"))
 }
