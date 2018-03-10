@@ -4,6 +4,7 @@ package main
 
 import "fmt"
 
+// longestCommonPrefix based on frequency.
 func longestCommonPrefix(strs []string) string {
 	prefixes := make(map[string]int)
 
@@ -54,11 +55,42 @@ func longestCommonPrefix(strs []string) string {
 	return longestPrefix
 }
 
+// longestCommonPrefixV2 version checking all strings at the same time.
+func longestCommonPrefixV2(strs []string) string {
+	if len(strs) == 0 {
+		return ""
+	}
+
+	validPrefix := true
+	base := strs[0]
+	m := len(base)
+	i := 0
+
+	for validPrefix && i < m {
+		char := base[i]
+		for _, s := range strs {
+			if i >= len(s) || s[i] != char {
+				validPrefix = false
+				break
+			}
+		}
+
+		if validPrefix {
+			i += 1
+		}
+	}
+
+	if m > 0 {
+		return base[0:i]
+	}
+
+	return ""
+}
+
 func main() {
-	fmt.Println(longestCommonPrefix([]string{"abcd", "ab", "abd", "ab"}))
-	fmt.Println(longestCommonPrefix([]string{"abcd", "ab", "abd", "ab"}))
-	fmt.Println(longestCommonPrefix([]string{"abcd", "ab", "abd", "ab"}))
-	fmt.Println(longestCommonPrefix([]string{"abcd", "ab", "abd", "ab"}))
-	fmt.Println(longestCommonPrefix([]string{"", "b"}))
+	fmt.Println(longestCommonPrefixV2([]string{}))
+	fmt.Println(longestCommonPrefixV2([]string{"abcd", "ab", "abd", "a"}))
+	fmt.Println(longestCommonPrefixV2([]string{"abcd", "abc", "abc", "abcd"}))
+	fmt.Println(longestCommonPrefixV2([]string{"", "b"}))
 	fmt.Println(longestCommonPrefix([]string{"", "", "", "", "", "b"}))
 }
