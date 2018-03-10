@@ -4,24 +4,45 @@ package main
 
 import "fmt"
 
-// "abcd" --> "a" --> "ab" --> "abc", "abcd"
-// "ab" --> "a" --> "ab"
-// "ad" --> "a" --> "ad"
-// "a" --> "c"
 func longestCommonPrefix(strs []string) string {
 	prefixes := make(map[string]int)
 
-	for _, s := range strs {
-		n := len(s)
-		for i := 0; i < n; i++ {
-			prefix := s[0 : i+1]
-			prefixes[prefix] += 1
+	// seed prefixes with first string. The longest common prefix
+	// has to be one of these prefixes, or "".
+	n := len(strs)
+	if n > 0 {
+		s := strs[0]
+		m := len(s)
+		for i := 0; i < m; i++ {
+			prefixes[s[0:i+1]] += 1
+		}
+	}
+
+	for i := 1; i < n; i++ {
+		s := strs[i]
+		m := len(s)
+		hasCommonPrefix := false
+		for j := 0; j < m; j++ {
+			prefix := s[0 : j+1]
+
+			// only add prefixes that are already in the map,
+			// else break because the following prefixes of this
+			// string are not common.
+			if _, found := prefixes[prefix]; found {
+				prefixes[prefix] += 1
+				hasCommonPrefix = true
+			} else {
+				break
+			}
+		}
+
+		if !hasCommonPrefix {
+			return ""
 		}
 	}
 
 	var longestPrefix string
 	var longestPrefixLength int
-	n := len(strs)
 
 	for prefix, count := range prefixes {
 		if count == n && longestPrefixLength < len(prefix) {
@@ -34,6 +55,10 @@ func longestCommonPrefix(strs []string) string {
 }
 
 func main() {
-	fmt.Println(longestCommonPrefix([]string{"abcd", "ab", "ad", "a"}))
+	fmt.Println(longestCommonPrefix([]string{"abcd", "ab", "abd", "ab"}))
+	fmt.Println(longestCommonPrefix([]string{"abcd", "ab", "abd", "ab"}))
+	fmt.Println(longestCommonPrefix([]string{"abcd", "ab", "abd", "ab"}))
+	fmt.Println(longestCommonPrefix([]string{"abcd", "ab", "abd", "ab"}))
 	fmt.Println(longestCommonPrefix([]string{"", "b"}))
+	fmt.Println(longestCommonPrefix([]string{"", "", "", "", "", "b"}))
 }
