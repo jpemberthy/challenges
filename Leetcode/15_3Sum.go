@@ -18,6 +18,45 @@ import (
 	"sort"
 )
 
+func threeSum(nums []int) [][]int {
+	sort.Ints(nums)
+	solution := make([][]int, 0)
+	triplets := make(map[string]bool)
+	// complements is map of the form { number --> indexes_in_nums }
+	// it's a reverse to lookup if and where the zero complements of a tuple are present.
+	complements := make(map[int][]int)
+	for index, value := range nums {
+		complements[value] = append(complements[value], index)
+	}
+
+	n := len(nums)
+	iLimit := n - 1
+	for i := 0; i < iLimit; i++ {
+		if i+2 < n && nums[i] == nums[i+2] && n-i > 3 {
+			continue
+		}
+		for j := i + 1; j < n; j++ {
+			c := (nums[i] + nums[j]) * -1
+			if complementIndexes, found := complements[c]; found {
+				for _, k := range complementIndexes {
+					if k != i && k != j {
+						ary := []int{nums[i], nums[j], nums[k]}
+						sort.Ints(ary)
+						key := fmt.Sprintf("%d-%d-%d", ary[0], ary[1], ary[2])
+						if !triplets[key] {
+							solution = append(solution, ary)
+							triplets[key] = true
+						}
+						break
+					}
+				}
+			}
+		}
+	}
+
+	return solution
+}
+
 func threeSumN3(nums []int) [][]int {
 	set := make(map[string]bool)
 	n := len(nums)
@@ -46,6 +85,6 @@ func threeSumN3(nums []int) [][]int {
 }
 
 func main() {
-	solutionN3 := threeSumN3([]int{-1, 0, 1, 2, -1, -4})
-	fmt.Println("Solution: ", solutionN3)
+	solution := threeSum([]int{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0})
+	fmt.Println("Solution: ", solution)
 }
