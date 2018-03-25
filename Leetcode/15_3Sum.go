@@ -24,7 +24,7 @@ func threeSum(nums []int) [][]int {
 	solution := make([][]int, 0)
 	triplets := make(map[string]bool)
 	// complements is map of the form { number --> indexes_in_nums }
-	// it's a reverse to lookup if and where the zero complements of a tuple are present.
+	// the map is used to check where the zero complements of a tuple are present.
 	complements := make(map[int][]int)
 	for index, value := range nums {
 		complements[value] = append(complements[value], index)
@@ -33,6 +33,8 @@ func threeSum(nums []int) [][]int {
 	n := len(nums)
 	iLimit := n - 1
 	for i := 0; i < iLimit; i++ {
+		// since the input is sorted,
+		// we only need to compute the last tuple composed of *this* number, e.g: [0,0], [5,5] etc.
 		if i+2 < n && nums[i] == nums[i+2] && n-i > 3 {
 			continue
 		}
