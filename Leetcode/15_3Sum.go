@@ -19,6 +19,7 @@ import (
 )
 
 func threeSum(nums []int) [][]int {
+	// sorting the input is an optimization to help with the runtime constraint in Leetcode.
 	sort.Ints(nums)
 	solution := make([][]int, 0)
 	triplets := make(map[string]bool)
