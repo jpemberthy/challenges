@@ -6,20 +6,20 @@ type ListNode struct {
 }
 
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
-	list := make([]*ListNode, 0)
+	nodes := make(map[int]*ListNode)
 
 	for i := 0; head != nil; i++ {
-		list = append(list, head)
+		nodes[i] = head
 		head = head.Next
 	}
 
-	lenght := len(list)
+	lenght := len(nodes)
 	nth := lenght - n
 	if nth > 0 {
-		head = list[0]
-		list[nth-1].Next = list[nth].Next
+		head = nodes[0]
+		nodes[nth-1].Next = nodes[nth].Next
 	} else if lenght > 1 {
-		head = list[1]
+		head = nodes[1]
 	} else {
 		head = nil
 	}
