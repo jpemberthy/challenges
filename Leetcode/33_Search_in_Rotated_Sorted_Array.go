@@ -30,15 +30,15 @@ func binarySearch(nums []int, target int, left int, right int) int {
 		return mid
 	}
 
+	// check if target is in the sorted side and do regular binary search.
 	if nums[left] < target && nums[mid] > target {
 		return binarySearch(nums, target, left, mid-1)
 	}
-
 	if nums[mid] < target && nums[right] > target {
 		return binarySearch(nums, target, mid+1, right)
 	}
 
-	// if it's not in the sorted side, then attempt in the unsorted one.
+	// then it's gotta be in the unsorted one. (or not -1)
 	if nums[mid] > nums[right] {
 		return binarySearch(nums, target, mid+1, right)
 	}
