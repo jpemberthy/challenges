@@ -68,6 +68,25 @@ func bellmanFord(graph Graph) []int {
 	return distances
 }
 
+func jumpGreedy(nums []int) int {
+	jumps, end, farthest := 0, 0, 0
+	n := len(nums) - 1
+	for i := 0; i < n; i++ {
+
+		k := nums[i] + i
+		if k > farthest {
+			farthest = k
+		}
+
+		if i == end {
+			jumps += 1
+			end = farthest
+		}
+	}
+
+	return jumps
+}
+
 func jump(nums []int) int {
 	graph := buildGraph(nums)
 	d := bellmanFord(graph)
@@ -75,6 +94,7 @@ func jump(nums []int) int {
 }
 
 func main() {
-	fmt.Println(jump([]int{1, 3, 1, 1, 4}))
+	fmt.Println(jump([]int{1, 2, 1, 1, 4}))
+	fmt.Println(jumpGreedy([]int{1, 2}))
 	fmt.Println("finished")
 }
