@@ -6,12 +6,19 @@ import (
 )
 
 func myPow(x float64, n int) float64 {
-	if x == -1 {
-		return -1
+	if n == 0 {
+		return 1
 	}
 
-	if x == 1 || n == 0 {
+	if x == 1 {
 		return 1
+	}
+
+	if x == -1 {
+		if n%2 == 0 {
+			return 1
+		}
+		return -1
 	}
 
 	if n < 0 {
@@ -36,6 +43,6 @@ func myPow(x float64, n int) float64 {
 }
 
 func main() {
-	fmt.Println(myPow(2, -2147483648))
+	fmt.Println(myPow(-1, -2147483648))
 	fmt.Println(myPow(2, 10))
 }
